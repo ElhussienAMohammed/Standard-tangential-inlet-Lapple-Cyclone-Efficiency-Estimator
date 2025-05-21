@@ -4,7 +4,10 @@ import pandas as pd
 import joblib
 
 # Load trained pipeline
-model = joblib.load(r"D:\For papers\Third paper\python\best_pipeline.pkl")
+import os
+model_path = os.path.join(os.path.dirname(__file__), "best_pipeline.pkl")
+model = joblib.load(model_path)
+
 
 st.set_page_config(page_title="Standard tangential-inlet Lapple Cyclone Efficiency Predictor", layout="centered")
 st.title("🌪️Standard tangential-inlet Lapple Cyclone Efficiency Estimator")
