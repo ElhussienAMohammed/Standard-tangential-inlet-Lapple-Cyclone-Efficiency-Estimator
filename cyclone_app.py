@@ -10,10 +10,8 @@ model = joblib.load(model_path)
 
 st.set_page_config(page_title="Standard-tangential-inlet-Lapple-Cyclone-Efficiency-Estimator", layout="centered")
 st.title("🌪️ Standard-tangential-inlet-Lapple-Cyclone-Efficiency-Estimator-Based-on-Shape-Factor")
-
+st.markdown("Enter your particle and cyclone characteristics to estimate separation efficiency.")
 # Preface/instructions
-st.markdown(":bulb: **Instructions**")
-Enter your particle characteristics to estimate the separation efficiency of a cyclone.
 
 All calculations where estimated based on cyclone main diameter **Dc = 200 mm**
 # --- Inputs ---
