@@ -17,9 +17,7 @@ st.markdown("""
 
 Enter your particle and flow characteristics to estimate the separation efficiency of a cyclone.
 
-📌 All inputs are normalized using a fixed hydraulic diameter **Dc = 200 mm**, consistent with the training dataset.
-""")
-
+📌 All calculations where estimated based on cyclone main diameter **Dc = 200 mm**
 # --- Inputs ---
 st.markdown("**1️⃣ Φ (sphericity):** Range `0.5 ≤ Φ ≤ 1`")
 phi = st.number_input("Particle Shape Φ", min_value=0.5, max_value=1.0, value=0.9)
