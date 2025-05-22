@@ -5,7 +5,7 @@ import joblib
 import os
 
 # Load model
-model = joblib.load(model_path)
+model = joblib.load("best_pipeline.pkl")
 
 st.set_page_config(page_title="Standard-tangential-inlet-Lapple-Cyclone-Efficiency-Estimator", layout="centered")
 st.title("🌪️ Standard-tangential-inlet-Lapple-Cyclone-Efficiency-Estimator-Based-on-Shape-Factor")
