@@ -12,7 +12,7 @@ st.title("🌪️ Standard-tangential-inlet-Lapple-Cyclone-Efficiency-Estimator-
 st.markdown("Enter your particle and cyclone characteristics to estimate separation efficiency.")
 # Preface/instructions
 
-All calculations where estimated based on cyclone main diameter **Dc = 200 mm**
+st.markdown("All calculations where estimated based on cyclone main diameter **Dc = 200 mm** ")
 # --- Inputs ---
 st.markdown("**1️⃣ Φ (sphericity):** Range `0.5 ≤ Φ ≤ 1`")
 phi = st.number_input("Particle Shape Φ", min_value=0.5, max_value=1.0, value=0.5)
