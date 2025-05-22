@@ -9,7 +9,7 @@ model = joblib.load("best_pipeline.pkl")
 
 st.set_page_config(page_title="Standard-tangential-inlet-Lapple-Cyclone-Efficiency-Estimator", layout="centered")
 st.title("🌪️ Standard-tangential-inlet-Lapple-Cyclone-Efficiency-Estimator-Based-on-Shape-Factor")
-st.markdown("Enter your particle and cyclone characteristics to estimate separation efficiency.")
+st.markdown("Enter your operating conditions and particle characteristics to estimate separation efficiency.")
 # Preface/instructions
 
 st.markdown("All calculations where estimated based on cyclone main diameter **Dc = 200 mm** ")
