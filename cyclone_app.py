@@ -2,45 +2,55 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import joblib
-
-# Load trained pipeline
 import os
+
+# Load model
 model_path = os.path.join(os.path.dirname(__file__), "best_pipeline.pkl")
 model = joblib.load(model_path)
 
+st.set_page_config(page_title="Standard-tangential-inlet-Lapple-Cyclone-Efficiency-Estimator", layout="centered")
+st.title("🌪️ Standard-tangential-inlet-Lapple-Cyclone-Efficiency-Estimator")
 
-st.set_page_config(page_title="Standard tangential-inlet Lapple Cyclone Efficiency Predictor", layout="centered")
-st.title("🌪️Standard tangential-inlet Lapple Cyclone Efficiency Estimator")
-st.markdown("Predict cyclone separation efficiency for spherical particles based on physical properties.")
+# Preface/instructions
+st.markdown("""
+💡 **Instructions**
 
-# --- Input fields ---
-phi = st.number_input("1️⃣ Enter particle shape Φ (sphericity): ** Range `0.5 ≤ Φ ≤ 1`", min_value=0.5, max_value=1.0, value=0.9)
-rho_s = st.number_input("2️⃣ Enter particle density ρₛ (kg/m³):** Range `700 ≤ ρₛ ≤ 3320`", min_value=700.0, max_value=3320.0, value=1500.0)
-d_h = st.number_input("3️⃣ Enter cyclone hydraulic diameter dₕ (mm)", min_value=1.0, max_value=500.0, value=50.0)
-d_p = st.number_input("4️⃣ Enter particle diameter dₚ (μm) :** Range `0.1 ≤ dₚ ≤ 10`", min_value=0.1, max_value=10.0, value=1.0)
-alpha_p = st.number_input("5️⃣ Enter volume fraction αₚ:** Range `1e-6 ≤ αₚ ≤ 1e-4", min_value=1e-6, max_value=1e-3, format="%.6f", value=1e-5)
+Enter your particle and flow characteristics to estimate the separation efficiency of a cyclone.
 
-# --- Transform inputs to model features ---
-X = phi  # x
-R = rho_s / 1.225  # density ratio
-H = d_p / (d_h * 1000)  # dimensionless particle size
-alpha = alpha_p  # direct mapping
+📌 All inputs are normalized using a fixed hydraulic diameter **Dc = 200 mm**, consistent with the training dataset.
+""")
 
-# Apply log transforms
+# --- Inputs ---
+st.markdown("**1️⃣ Φ (sphericity):** Range `0.5 ≤ Φ ≤ 1`")
+phi = st.number_input("Particle Shape Φ", min_value=0.5, max_value=1.0, value=0.9)
+
+st.markdown("**2️⃣ ρₛ (particle density kg/m³):** Range `700 ≤ ρₛ ≤ 3320`")
+rho_s = st.number_input("Particle Density ρₛ", min_value=700.0, max_value=3320.0, value=1500.0)
+
+st.markdown("**3️⃣ dₚ (particle diameter μm):** Range `0.1 ≤ dₚ ≤ 10`")
+d_p = st.number_input("Particle Diameter dₚ", min_value=0.1, max_value=10.0, value=1.0)
+
+st.markdown("**4️⃣ αₚ (volume fraction):** Range `1e-6 ≤ αₚ ≤ 1e-3`")
+alpha_p = st.number_input("Volume Fraction αₚ", min_value=1e-6, max_value=1e-3, format="%.6f", value=1e-5)
+
+# --- Transform inputs ---
+X = phi
+R = rho_s / 1.225  # Dimensionless density ratio
+d_h = 200.0  # Fixed hydraulic diameter in mm
+H = d_p / (d_h * 1000)  # Convert mm → m, then dimensionless size
+alpha = alpha_p
+
 log_H = np.log1p(H)
 log_R = np.log1p(R)
 log_alpha = np.log1p(alpha)
 
-# Construct model input
-input_df = pd.DataFrame([[X, log_H, log_R, log_alpha]], columns=['x', 'log_H', 'log_R', 'log_alpha'])
+X_input = pd.DataFrame([[X, log_H, log_R, log_alpha]], columns=['x', 'log_H', 'log_R', 'log_alpha'])
 
-# Predict
-y_pred = model.predict(input_df)[0]
+# --- Predict ---
+y_pred = model.predict(X_input)[0]
 y_pred = np.expm1(y_pred)
 y_pred = np.clip(y_pred, 0, 1)
 
-# --- Output ---
-st.subheader("✅ Prediction Result")
-st.success(f"Your cyclone efficiency is equal to **{y_pred:.5f}** for your best spherical particle.")
-
-st.caption("Model output is bounded to [0, 1] to reflect physical limits.")
+st.subheader("📈 Predicted Result")
+st.success(f"Your cyclone efficiency is **{y_pred:.5f}** for this spherical particle.")
+st.caption("Predicted efficiency is dimensionless and bounded between 0 and 1.")
