@@ -12,7 +12,6 @@ st.set_page_config(page_title="Standard-tangential-inlet-Lapple-Cyclone-Efficien
 st.title("🌪️ Standard-tangential-inlet-Lapple-Cyclone-Efficiency-Estimator")
 
 # Preface/instructions
-st.markdown("""
 💡 **Instructions**
 
 Enter your particle and flow characteristics to estimate the separation efficiency of a cyclone.
