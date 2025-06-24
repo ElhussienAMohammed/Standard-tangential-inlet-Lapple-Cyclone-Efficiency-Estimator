@@ -29,8 +29,8 @@ alpha_p = st.number_input("Volume Fraction αₚ", min_value=1e-6, max_value=1e-
 # --- Transform inputs ---
 X = phi
 R = rho_s / 1.225  # Dimensionless density ratio
-d_h = 200.0  # Fixed hydraulic diameter in mm
-H = d_p / (d_h * 1000)  # Convert mm → m, then dimensionless size
+d_h = 6.67  # Fixed hydraulic diameter in cm
+H = d_p / (d_h * 0.01)  # Convert mm → m, then dimensionless size
 alpha = alpha_p
 
 log_H = np.log1p(H)
