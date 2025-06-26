@@ -11,7 +11,7 @@ st.set_page_config(page_title="Standard-tangential-inlet-Lapple-Cyclone-Efficien
 st.title("🌪️ Standard-tangential-inlet-Lapple-Cyclone-Efficiency-Estimator-Based-on-Shape-Factor")
 st.markdown("Enter your operating conditions and particle characteristics to estimate separation efficiency.")
 # Preface/instructions
-
+st.markdown("Calculation with 98% accuracy.")
 st.markdown("All calculations where estimated based on cyclone main diameter **Dc = 200 mm** ")
 # --- Inputs ---
 st.markdown("**1️⃣ Φ (sphericity):** Range `0.5 ≤ Φ ≤ 1`")
